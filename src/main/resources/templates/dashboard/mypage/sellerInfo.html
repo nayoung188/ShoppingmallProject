@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate ="~{dashboard/dashboardFragments/dashboardLayout}">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지</title>
+
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{../css/sellerInfo.css}"/>
+  </th:block>
+</head>
+<body layout:fragment="content">
+<input type="hidden" id="openApiEncodingKey" th:value="${@environment.getProperty('open.api.encoding.key')}">
+<input type="hidden" id="openApiDecodingKey" th:value="${@environment.getProperty('open.api.decoding.key')}">
+<div class="sellerInfo_title insert_box">
+  <div class="sellerInfo_title_first">마이페이지 > 판매자정보</div>
+  <div class="sellerInfo_title_second">판매자정보</div>
+</div>
+<div class="insert_box">
+  <div class="div_info_name">판매자 정보</div>
+  <hr>
+  <form>
+  <div th:if="${memberInfo.companyCeo} == null or ${memberInfo.companyCreateDate} == null or ${memberInfo.companyNumber} == null or ${memberInfo.companyAddress} == null or ${memberInfo.companyType} == null or ${memberInfo.companyBusinessType} == null or ${memberInfo.companyBusinessCategory} == null" class="info_alert_message">
+    <a href="/dashboard/sellerInformation/insert">판매자정보를 등록해주세요!</a>
+  </div>
+  <div class="align_center_and_margin_bottom">
+    <div class="label_name">상호명</div>
+    <div class="input_box_div">
+      <input th:value="${memberInfo.companyName}" class="input_text_style" readonly>
+    </div>
+  </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">대표자 명</div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.companyCeo}" id="companyCeoVal" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">사업자 등록 번호</div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.companyNumber}" id="companyNumberVal" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">사업자 등록일</div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.companyCreateDate}" id="companyCreateDateVal" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">사업장소재지</div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.companyAddress}" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">사업자 구분</div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.companyType}" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">업태</div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.companyBusinessType}" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">업종</div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.companyBusinessCategory}" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name">통신판매업신고번호</div>
+      <div class="input_box_div">
+        <input type="text" id="prmmiMnno" class="input_text_style" readonly>
+      </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name"></div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.businessLicense}" id="businessLicenseName" class="input_text_style" readonly>
+      </div>
+      <button th:if="${memberInfo.businessLicense == null}" type="button" id="businessLicenseBtn" class="btn_css">사업자 등록증 업로드</button>
+      <input type="file" id="businessLicense" style="display: none" class="license_file_input">
+    </div>
+    <div class="align_center_and_margin_bottom">
+      <div class="label_name"></div>
+      <div class="input_box_div">
+        <input th:value="${memberInfo.telemarketingLicense}" id="TelemarketingLicenseInfo" class="input_text_style" readonly>
+      </div>
+      <button th:if="${memberInfo.telemarketingLicense == null}" type="button" id="telemarketingLicenseBtn" class="btn_css">통신판매업신고증 업로드</button>
+      <input type="file" id="telemarketingLicense" style="display: none" class="license_file_input">
+    </div>
+  </form>
+</div>
+
+<div class="insert_box">
+  <div class="div_info_name">정산 정보</div>
+  <hr>
+  <div class="align_center_and_margin_bottom">
+    <div class="label_name">정산대금입금계좌</div>
+    <form>
+      <div>
+        <div th:if="${memberInfo.bankName} != null or ${memberInfo.accountNo} != null or ${memberInfo.accountDepositor} != null" class="align_center_and_margin_bottom">
+          <input type="hidden" th:value="${memberInfo.bankName}" id="bankNameInput" class="input_text_style" readonly>
+          <input type="hidden" th:value="${memberInfo.accountNo}" id="accountNoInput" class="input_text_style" readonly>
+          <input type="hidden" th:value="${memberInfo.accountDepositor}" id="accountDepositorInput" class="input_text_style" readonly>
+          <div class="input_box_div">
+            <input id="mergedAccountInfo" class="input_text_style" readonly>
+          </div>
+        </div>
+        <div th:if="${memberInfo.bankName} == null or ${memberInfo.accountNo} == null or ${memberInfo.accountDepositor} == null">
+          <div class="bank_option_div input_margin_bottom">
+            <div class="bank_option_button">
+              <span>은행을 선택해주세요</span>
+              <i class="fa-solid fa-angle-down arrow_icon_css"></i>
+            </div>
+              <ul class="bank_option_list" id="bankName">
+                <li class="bank_option" value="KB">국민은행</li>
+                <li class="bank_option" value="IBK">기업은행</li>
+                <li class="bank_option" value="NH">농협</li>
+                <li class="bank_option" value="SHINHAN">신한은행</li>
+                <li class="bank_option" value="WOORI">우리은행</li>
+                <li class="bank_option" value="SC">SC제일은행</li>
+                <li class="bank_option" value="HANA">KEB하나은행</li>
+                <li class="bank_option" value="CITY">한국시티은행</li>
+                <li class="bank_option" value="KJB">광주은행</li>
+                <li class="bank_option" value="KNB">경남은행</li>
+                <li class="bank_option" value="DGB">대구은행</li>
+                <li class="bank_option" value="BS">부산은행</li>
+                <li class="bank_option" value="JB">전북은행</li>
+                <li class="bank_option" value="JEJU">제주은행</li>
+                <li class="bank_option" value="SUHYUP">수협</li>
+                <li class="bank_option" value="POST">우체국</li>
+                <li class="bank_option" value="KDB">산업은행</li>
+                <li class="bank_option" value="KFCC">새마을금고</li>
+                <li class="bank_option" value="CU">신협</li>
+                <li class="bank_option" value="FSB">저축은행</li>
+                <li class="bank_option" value="HSBC">HSBC은행</li>
+                <li class="bank_option" value="KBANK">케이뱅크</li>
+                <li class="bank_option" value="KKOBANK">카카오뱅크</li>
+                <li class="bank_option border_bottom_none" value="TOSS">토스뱅크</li>
+              </ul>
+          </div>
+          <div class="input_box_div input_margin_bottom">
+            <input type="text" class="input_text_style" id="accountDepositor" placeholder="예금주명">
+          </div>
+          <div class="input_box_div input_margin_bottom">
+            <input type="text" class="input_text_style" id="accountNo" placeholder="계좌번호 ( - 없이 입력 )">
+          </div>
+        </div>
+        <div class="align_center_and_margin_bottom">
+          <div class="input_box_div">
+            <input th:value="${memberInfo.accountLicense}" id="accountLicenseInfo" class="input_text_style" placeholder="통장사본 파일명" readonly>
+          </div>
+          <button th:if="${memberInfo.accountLicense == null}" type="button" id="accountLicenseBtn" class="btn_css">통장사본 업로드</button>
+          <input type="file" id="accountLicense" style="display: none" class="license_file_input">
+        </div>
+      </div>
+      <div class="notice_message">정산 정보는 직접 수정이 불가능 합니다. 수정을 원하시는 경우 1:1문의 주시기바랍니다.</div>
+    </form>
+  </div>
+  <div th:if="${memberInfo.bankName} == null or ${memberInfo.accountNo} == null or ${memberInfo.accountDepositor} == null" class="btn_center">
+    <button type="submit" id="saveAccountInfoBtn" class="btn_css">정산정보 저장</button>
+  </div>
+</div>
+
+<div class="insert_box">
+  <div class="label_btn">
+    <div class="div_info_name">담당자 정보</div>
+    <button id="managerAddBtn" data-toggle="modal" data-target="#staticBackdrop" class="btn_css">담당자 추가</button>
+  </div>
+  <hr>
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>담당자 역할</th>
+        <th>담당자 이름</th>
+        <th>담당자 연락처</th>
+        <th>담당자 이메일</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>정산관리자</td>
+        <td>홍길동</td>
+        <td>01044444444</td>
+        <td>email@email.com</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div class="modal fade" id="managerAddBtnModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="managerAddLabel">담당자 등록</h5>
+            <button class="close" data-dismiss="modal" aria-label="Close">x</button>
+          </div>
+
+          <div class="modal-body modal_inputs">
+            <div>
+              <select class="manager_select_css">
+                <option selected class="option_list_css">담당자의 역할을 선택해주세요</option>
+                <option value="paymentManager" class="option_list_css">정산관리자</option>
+                <option value="CSManager" class="option_list_css">CS관리자</option>
+                <option value="deliveryManager" class="option_list_css">배송관리자</option>
+              </select>
+            </div>
+            <div class="input_box_div margin_zero">
+              <input type="text" class="input_text_style" placeholder="담당자 이름">
+            </div>
+            <div class="input_box_div margin_zero">
+              <input type="text" class="input_text_style" placeholder="담당자 연락처">
+            </div>
+            <div class="input_box_div margin_zero">
+              <input type="text" class="input_text_style" placeholder="담당자 이메일">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">닫기</button>
+            <button type="button" class="btn btn-primary">저장</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="insert_box">
+  <div class="label_btn">
+    <div class="div_info_name">배송정책목록</div>
+    <button id="deliveryPolicyAddBtn" data-toggle="modal" data-target="#deliveryPolicyAddModal" class="btn_css">배송정책 등록</button>
+  </div>
+  <hr>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>배송정책이름</th>
+          <th>배송주소</th>
+          <th>연락처</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="delivery : ${delivery}">
+          <td th:text="${delivery.deliveryName}"></td>
+          <td th:text="${delivery.deliveryAddress}"></td>
+          <td th:text="${delivery.deliveryTel}"></td>
+          <td><button type="button" id="deliveryInfoDelete">삭제</button></td>
+          <input type="hidden" class="deliveryNo" th:value="${delivery.deliveryNo}">
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--  배송정책 등록 모달 -->
+  <div class="modal fade" id="deliveryPolicyAddModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form id="deliveryInformationForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">배송비정책 등록</h5>
+            <button class="close" data-dismiss="modal" aria-label="Close">x</button>
+          </div>
+          <div class="modal-body modal_inputs">
+            <div class="input_box_div margin_zero">
+              <input type="text" class="input_text_style" name="deliveryName" id="deliveryName" placeholder="주소지 관리이름">
+            </div>
+            <div class="post_input_btn">
+              <div class="input_box_div post_input_div margin_zero">
+                <input type="text" class="input_text_style" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly>
+              </div>
+              <input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기" class="btn_css code_btn">
+            </div>
+            <div class="input_box_div margin_zero">
+              <input type="text" class="input_text_style" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
+            </div>
+            <span id="guide" style="color:#999;display:none"></span>
+            <div class="input_box_div margin_zero">
+              <input type="text" class="input_text_style" name="detailAddress" id="detailAddress" placeholder="상세주소">
+            </div>
+            <div class="input_box_div margin_zero">
+              <input type="text" class="input_text_style" name="deliveryTel" id="deliveryTel" placeholder="연락처">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close" id="modalCloseBtn">닫기</button>
+            <button type="button" class="btn btn-primary" id="deliveryInfoSubmitBtn">저장</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="../JS/sellerInfo.js"></script>
+</body>
+</html>

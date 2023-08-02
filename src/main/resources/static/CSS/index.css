@@ -1,0 +1,158 @@
+
+body{
+    min-height: 851px;
+}
+
+.index_container{
+    width: 100%;
+    height: 100vh !important;
+}
+
+.main_content_div{
+    background: url("http://cdn.quv.kr/li5d4rbeo/up/63f59b42a95a9_1920.jpg") 46% 35% / contain no-repeat rgb(169, 202, 255);
+}
+
+.viewBox {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.spacer{
+    height: 35vh;
+}
+
+.notice {
+    height: 310px;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.notice .span_1st {
+    font-size: 64px;
+    letter-spacing: -2px;
+    font-weight: 300;
+}
+
+.notice .span_2nd {
+    font-size: 64px;
+    letter-spacing: -2px;
+    font-weight: bold;
+}
+
+.notice .span_3rd {
+    font-size: 32px;
+    padding-top: 30px;
+}
+
+.counsel_div {
+    text-align: center;
+    margin-top: 55px;
+    padding-bottom: 75px;
+}
+
+.counsel_btn {
+    text-align: center;
+    width: 200px;
+    height: 60px;
+    background-color: #0096ff;
+    border: 0 solid;
+    border-radius: 30px;
+    margin: auto;
+    color: #FFFFFF;
+    font-size: 23px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.counsel_btn:hover {
+    background-color: #FFFFFF;
+    color: #0096ff;
+    transition: 0.3s;
+}
+
+
+/* 상담 모달창 */
+.counsel_modal_container {
+    width: 100%;
+}
+.counsel_form_container {
+    width: 100%;
+}
+.counsel_form_modal_div {
+    width: 100%;
+}
+.counsel_modal_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #444444;
+}
+
+.counsel_span_1st {
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.counsel_span_2nd{
+    font-size: 14px;
+    font-weight: lighter;
+    margin-bottom: 53px;
+    letter-spacing: -0.5px;
+}
+.counsel_modal_content .counsel_input_div {
+    width: 80%;
+    border-radius: 10px;
+    margin-bottom: 11px;
+    outline: none;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+    height: 45px;
+}
+.counsel_modal_content input{
+    margin: 11px 15px 15px ;
+    width: 92%;
+    border: none;
+    outline: none;
+    color: #505050;
+}
+
+.counsel_modal_content input::placeholder{
+    color: #cccccc;
+}
+.counsel_input_div:focus-within{
+    border: 1px solid #5db8ff;
+}
+.agree_div{
+    margin-top: 7%;
+    font-size: 13px !important;
+    display: flex;
+}
+
+.privacy_agree_checkbox {
+    width: 13px !important;
+    height: 13px !important;
+    margin: 3px 6px 0px 0!important;
+}
+
+.counsel_request_btn {
+    margin-top: 10%;
+    margin-bottom: 35px;
+    width: 80%;
+    height: 45px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background-color: #5db8ff;
+    font-size: 16px;
+    font-weight: 500;
+    border: 0 solid;
+}
+.counsel_request_btn:hover {
+    background-color: #0075d2;
+    transition: 0.3s;
+}

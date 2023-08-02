@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate ="~{admin/adminFragments/adminLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>그로우투 관리자페이지</title>
+    <link rel="stylesheet" th:href="@{../css/adminMain.css}" />
+</head>
+<div layout:fragment="content">
+    <div class="admin_main_content_container">
+        <div class="div_member_list_container container_border">
+            <div class="container_name">
+                <a href="/admin/memberList">&nbsp 회원 리스트 ▶&nbsp&nbsp</a>
+            </div>
+            <table class="div_member_list_show_box">
+                <tr class="member_list_header_div">
+                    <td>번호</td>
+                    <td>이메일</td>
+                    <td>이름</td>
+                    <td>회사명</td>
+                    <td colspan="2" style="width: 25%;">권한</td>
+                </tr>
+                <tr th:each="member : ${members}" th:if="${memberStat.index < 5}" class="member_list_body_div">
+                    <td th:text="${member.memberNo}"></td>
+                    <td th:text="${member.memberEmail}"></td>
+                    <td th:text="${member.memberName}"></td>
+                    <td th:text="${member.companyName}"></td>
+                    <td th:text="${member.role}" class="text_align_right"></td>
+                    <td>
+                        <button th:if="${member.role == 'MEMBER'}" type="button" class="btn_member">승인</button>
+                        <button th:if="${member.role == 'MANAGER'}" type="button" class="btn_manager">관리</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="div_cate_list_container container_border">
+            <div class="container_name">
+                <a href="/admin/category">&nbsp 카테고리 리스트 ▶&nbsp&nbsp</a>
+            </div>
+            <div class="div_cate_list_show_box">
+                <div class="cate_list_header_div">
+                    <span>카테고리ID</span>
+                    <span>카테고리명</span>
+                    <span>상위카테고리ID</span>
+                    <span>상위카테고리명</span>
+                </div>
+                <div th:each="category : ${categories}" th:if="${categoryStat.index < 5}" class="cate_list_body_div">
+                    <span th:text="${category.categoryId}"></span>
+                    <span th:text="${category.categoryName}"></span>
+                    <span th:text="${category.parentId}"></span>
+                    <span th:text="${category.parentName}"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

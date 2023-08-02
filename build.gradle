@@ -1,0 +1,59 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.12'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'shoppingmall_project'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.7.3'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.springframework.boot:spring-boot-devtools'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'com.google.cloud:google-cloud-vision:3.14.0'
+	implementation group: 'com.google.cloud', name: 'google-cloud-translate', version: '2.19.0'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+	implementation group: 'org.json', name: 'json', version: '20220924'
+	implementation group: 'com.theokanning.openai-gpt3-java', name: 'api', version: '0.12.0'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
+
+	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+
+	implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

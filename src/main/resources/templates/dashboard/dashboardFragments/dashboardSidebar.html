@@ -1,0 +1,131 @@
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<!--sidebarFragment 선언-->
+<ul th:fragment="sidebarFragment" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard/main">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <!--                <i class="fas fa-laugh-wink"></i>-->
+    </div>
+    <img src="../../images/logo_back_none.png" alt="로고" width="90px">
+    <div class="sidebar-brand-text mx-3">그로우투</div>
+  </a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+    <a class="nav-link" href="/dashboard/main">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Nav Item - 상품관리 메뉴 -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+       aria-expanded="true" aria-controls="collapseProducts">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>상품관리</span>
+    </a>
+    <div id="collapseProducts" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="/dashboard/product">상품 조회 및 수정</a>
+        <a class="collapse-item" href="/dashboard/productInsert">상품 등록</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Nav Item - 주문관리 메뉴 -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+       aria-expanded="true" aria-controls="collapseOrders">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>주문관리</span>
+    </a>
+    <div id="collapseOrders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="/dashboard/orderList">주문조회</a>
+        <a class="collapse-item" href="register.html">배송관리</a>
+        <a class="collapse-item" href="register.html">취소관리</a>
+        <a class="collapse-item" href="register.html">반품관리</a>
+        <a class="collapse-item" href="register.html">교환 및 AS</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Nav Item - CS관리 메뉴 -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomerService"
+       aria-expanded="true" aria-controls="collapseCustomerService">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>CS관리</span>
+    </a>
+    <div id="collapseCustomerService" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="login.html">고객문의</a>
+        <a class="collapse-item" href="register.html">파트너문의</a>
+        <a class="collapse-item" href="register.html">리뷰관리</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Nav Item - 정산관리 메뉴 -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettlement"
+       aria-expanded="true" aria-controls="collapseSettlement">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>정산관리</span>
+    </a>
+    <div id="collapseSettlement" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="login.html">정산리스트</a>
+        <a class="collapse-item" href="register.html">패널티리스트</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Nav Item - 정산관리 메뉴 -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMypage"
+       aria-expanded="true" aria-controls="collapseMypage">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>마이페이지</span>
+    </a>
+    <div id="collapseMypage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="/dashboard/myInformation">내정보</a>
+        <a class="collapse-item" href="/dashboard/sellerInformation">판매자 정보</a>
+        <a class="collapse-item" href="register.html">채널관리</a>
+        <a class="collapse-item" href="register.html">AI관리</a>
+      </div>
+    </div>
+  </li>
+
+
+  <!--        &lt;!&ndash; Nav Item - Charts &ndash;&gt;-->
+  <!--        <li class="nav-item">-->
+  <!--            <a class="nav-link" href="charts.html">-->
+  <!--                <i class="fas fa-fw fa-chart-area"></i>-->
+  <!--                <span>Charts</span></a>-->
+  <!--        </li>-->
+
+  <!--        &lt;!&ndash; Nav Item - Tables &ndash;&gt;-->
+  <!--        <li class="nav-item">-->
+  <!--            <a class="nav-link" href="tables.html">-->
+  <!--                <i class="fas fa-fw fa-table"></i>-->
+  <!--                <span>Tables</span></a>-->
+  <!--        </li>-->
+
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+</ul>
+</html>

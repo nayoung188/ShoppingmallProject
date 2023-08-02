@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate ="~{fragments/layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>GROWTO MAIN</title>
+    <th:block layout:fragment="css"><link rel="stylesheet" th:href="@{../css/index.css}" /></th:block>
+</head>
+
+<th:block layout:fragment="script">
+    <!--이 html에서만 사용할 script-->
+</th:block>
+
+<body>
+<div layout:fragment="index" class="index_container">
+    <div class="main_content_div">
+        <div class="viewBox">
+            <div class="spacer"></div>
+            <div class="notice">
+                <span class="span_1st">운영은 내가 할게</span>
+                <span class="span_2nd">성공은 누가할래?</span>
+                <span class="span_3rd">시작단계부터 성장까지 온라인 운영에 필요한 모든것</span>
+            </div>
+            <div class="counsel_div">
+                <div class="counsel_btn_div">
+                    <button type="button" onclick="displayCounselModal()" class="counsel_btn">상담신청</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="counsel_modal" id="counselModal">
+        <div class="modal_box">
+            <div class="close" onclick="hideCounselModal()">&times;</div>
+            <div class="counsel_modal_container">
+                <div class="counsel_form_container" id="counselFormContainer"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function displayCounselModal(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function (){
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("counselFormContainer").innerHTML = xhr.responseText;
+                    document.getElementById("counselModal").style.display = "block";
+                    document.body.style.overflow = "hidden";
+                }
+            };
+            xhr.open("GET", "/counselForm", true);
+            xhr.send();
+        }
+        function hideCounselModal() {
+            document.getElementById("counselModal").style.display = "none";
+            document.body.style.overflow = "";
+        }
+    </script>
+</div>
+
+
+</body>
+</html>

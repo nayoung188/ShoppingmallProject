@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate ="~{dashboard/dashboardFragments/dashboardLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>그로우투 마이페이지</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{../../css/sellerInfoInsert.css}"/>
+    </th:block>
+</head>
+
+<body layout:fragment="content">
+<div class="sellerInfo_title insert_box">
+    <div class="sellerInfo_title_first">마이페이지 > 판매자정보 > 판매자정보 등록</div>
+    <div class="sellerInfo_title_second">판매자정보 등록</div>
+</div>
+
+<div class="insert_box">
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">상호명</div>
+        <div class="input_box_div" th:if="${memberInfo.companyName} != null">
+            <input th:value="${memberInfo.companyName}" class="input_text_style">
+        </div>
+        <div class="input_box_div" th:if="${memberInfo.companyName} == null">
+            <input type="text" id="companyName" class="input_text_style" placeholder="상호명을 입력해주세요">
+        </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">대표자명</div>
+        <div class="input_box_div" th:if="${memberInfo.companyCeo} != null">
+            <input th:value="${memberInfo.companyCeo}" class="input_text_style">
+        </div>
+        <div class="input_box_div" th:if="${memberInfo.companyCeo} == null">
+            <input type="text" id="companyCeo" class="input_text_style" placeholder="대표자명을 입력해주세요">
+        </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">사업자번호</div>
+        <div class="input_box_div" th:if="${memberInfo.companyNumber} != null">
+            <input th:value="${memberInfo.companyNumber}" class="input_text_style">
+        </div>
+        <div class="input_box_div" th:if="${memberInfo.companyNumber} == null">
+            <input type="text" id="companyNumber" class="input_text_style" placeholder="사업자번호를 입력해주세요">
+        </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">사업자등록일</div>
+        <div class="input_box_div" th:if="${memberInfo.companyCreateDate} != null">
+            <input th:value="${memberInfo.companyCreateDate}" class="input_text_style">
+        </div>
+        <div class="input_box_div" th:if="${memberInfo.companyCreateDate} == null">
+            <input type="text" id="companyCreateDate" class="input_text_style" placeholder="사업자 등록일을 입력해주세요">
+        </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">사업장소재지</div>
+        <div class="input_box_div" th:if="${memberInfo.companyAddress} != null">
+            <input th:value="${memberInfo.companyAddress}" class="input_text_style">
+        </div>
+        <div class="input_box_div" th:if="${memberInfo.companyAddress} == null">
+            <input type="text" id="companyAddress" class="input_text_style" placeholder="사업장 주소를 입력해주세요">
+        </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">사업자 구분</div>
+        <div class="input_box_div" th:if="${memberInfo.companyType} != null">
+            <input th:value="${memberInfo.companyType}" class="input_text_style">
+        </div>
+        <div th:if="${memberInfo.companyType} == null" class="radio_container">
+            <label for="companyType1">
+                <input type="radio" class="right_margin_radio" name="companyType" id="companyType1" value="개인">개인사업자
+            </label>
+            <label for="companyType2">
+                <input type="radio" class="right_margin_radio" name="companyType" id="companyType2" value="법인">법인사업자
+            </label>
+        </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">업태</div>
+        <div class="input_box_div" th:if="${memberInfo.companyBusinessType} != null">
+            <input th:value="${memberInfo.companyBusinessType}" class="input_text_style">
+        </div>
+        <div class="input_box_div" th:if="${memberInfo.companyBusinessType} == null">
+            <input type="text" id="companyBusinessType" class="input_text_style" placeholder="업태를 입력해주세요">
+        </div>
+    </div>
+    <div class="align_center_and_margin_bottom">
+        <div class="label_name">업종</div>
+        <div class="input_box_div" th:if="${memberInfo.companyBusinessCategory} != null">
+            <input th:value="${memberInfo.companyBusinessCategory}" class="input_text_style">
+        </div>
+        <div class="input_box_div" th:if="${memberInfo.companyBusinessCategory} == null">
+            <input type="text" id="companyBusinessCategory" class="input_text_style" placeholder="업종을 입력해주세요">
+        </div>
+    </div>
+    <div class="btn_center">
+        <button type="submit" id="saveSellerInfoBtn">판매자정보 저장</button>
+    </div>
+
+</div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="../../JS/sellerInfoInsert.js"></script>
+</body>
+</html>

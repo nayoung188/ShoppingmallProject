@@ -1,0 +1,85 @@
+input:focus {
+    outline: none;
+}
+
+.insert_box {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+}
+
+.insert_box_center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sellerInfo_title_first{
+    font-size: 12px;
+}
+
+.sellerInfo_title_second{
+    font-size: 32px;
+    font-weight: bold;
+    color: #4f4f4f;
+}
+
+.div_info_name {
+    font-size: 24px;
+    color: #4f4f4f;
+    margin-bottom: 20px;
+}
+
+.label_name {
+    width: 180px;
+    margin-bottom: auto;
+    color: #5a5c69;
+}
+
+.input_box_div{
+    border: 1px solid #cccdd4;
+    width: 300px;
+    height: 40px;
+}
+
+.input_text_style {
+    border: none;
+    width: 90%;
+    padding: 7px 0 0 10px;
+    color: #5a5c69;
+    font-size: 14px;
+}
+
+.align_center_and_margin_bottom {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.notice_message {
+    font-size: 11px;
+    color: #ff4040;
+}
+
+.info_alert_message {
+    color: #ff4040;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+.btn_center {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.radio_container {
+    display: flex;
+    gap: 40px;
+    width: 300px;
+}
+
+.right_margin_radio {
+    margin-right: 5px;
+}
+

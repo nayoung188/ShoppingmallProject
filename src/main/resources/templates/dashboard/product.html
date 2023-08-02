@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate ="~{dashboard/dashboardFragments/dashboardLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>그로우투 상품관리</title>
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{../css/productList.css}"/>
+    </th:block>
+</head>
+<body layout:fragment="content">
+<div class="product_list_container">
+    <div class="product_list_title_dox product_list_box">
+        <div class="prodList_title_first">상품관리 > 상품 조회 및 수정</div>
+        <div class="prodList_title_second">상품 리스트</div>
+    </div>
+    <div class="product_list_element_container">
+        <div class="product_list_element_box_1 element_box product_list_box" id="allCountDiv" name="productState" value="">
+            <span>모든 상품</span>
+            <div class="count_span_container">
+                <span th:text="${allCount}"></span>
+                <span>개</span>
+            </div>
+        </div>
+        <div class="product_list_element_box_2 element_box product_list_box" id="saleCountDiv" name="productState" value="판매중">
+            <span>판매중</span>
+            <div class="count_span_container">
+                <span th:text="${saleCount}"></span>
+                <span>개</span>
+            </div>
+        </div>
+        <div class="product_list_element_box_3 element_box product_list_box" id="soldOutCountDiv" name="productState" value="품절">
+            <span>품절</span>
+            <div class="count_span_container">
+                <span th:text="${soldOutCount}"></span>
+                <span>개</span>
+            </div>
+        </div>
+        <div class="product_list_element_box_4 element_box product_list_box" id="stopCountDiv" name="productState" value="판매중지">
+            <span>판매중지</span>
+            <div class="count_span_container">
+                <span th:text="${stopCount}"></span>
+                <span>개</span>
+            </div>
+        </div>
+    </div>
+    <div class="product_list_table_container product_list_box">
+        <form id="productSearchForm" method="GET" th:action="@{/dashboard/product}">
+            <div class="total_search search_column_box">
+                <span class="search_subject">통합검색</span>
+                <input class="search_input" type="text" name="searchKeyword" id="searchKeyword" autocomplete="off">
+            </div>
+            <div class="state_search search_column_box">
+                <span class="search_subject">판매상태</span>
+                <div class="state_checkbox_div_container">
+                    <div class="state_checkbox">
+                        <input type="checkbox" id="state_1" name="productState" value="판매가능">
+                        <label class="label_hover" for="state_1">판매가능</label>
+                    </div>
+                    <div class="state_checkbox">
+                        <input type="checkbox" id="state_2" name="productState" value="판매중">
+                        <label class="label_hover" for="state_2">판매중</label>
+                    </div>
+                    <div class="state_checkbox">
+                        <input type="checkbox" id="state_3" name="productState" value="품절">
+                        <label class="label_hover" for="state_3">품절</label>
+                    </div>
+                    <div class="state_checkbox">
+                        <input type="checkbox" id="state_4" name="productState" value="판매중지">
+                        <label class="label_hover" for="state_4">판매중지</label>
+                    </div>
+                </div>
+            </div>
+            <div class="search_input_box_div">
+                <div class="name_search search_column_box_inbox">
+                    <span class="search_subject_inbox">상품명</span>
+                    <input class="search_input_inbox" type="text" name="productName" id="productName" autocomplete="off">
+                </div>
+                <div class="code_search search_column_box_inbox">
+                    <span class="search_subject_inbox">상품코드</span>
+                    <input class="search_input_inbox" type="text" name="productCode" id="productCode" autocomplete="off">
+                </div>
+                <div class="brand_search search_column_box_inbox">
+                    <span class="search_subject_inbox">브랜드명</span>
+                    <input class="search_input_inbox" type="text" name="productBrand" id="productBrand" autocomplete="off">
+                </div>
+                <div class="manufacturer_search search_column_box_inbox">
+                    <span class="search_subject_inbox">제조사</span>
+                    <input class="search_input_inbox" type="text" name="manufacturer" id="manufacturer" autocomplete="off">
+                </div>
+            </div>
+            <div class="search_box_btn">
+                <div class="btn_search_div">
+                    <button class="btn_search" type="submit">검색</button>
+                </div>
+                <div class="btn_reset_div">
+                    <button class="btn_reset" id="inputReset">초기화</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="product_list_table_container product_list_box">
+        <form id="listForm">
+        <div class="product_list_name_div">상품 목록</div>
+        <hr>
+        <div class="count_function_div">
+            <div class="search_count">
+                <span th:text="${dataCount}" class="data_count_span"></span>
+                <span> 개</span>
+            </div>
+            <div class="product_list_function_container">
+                <div>
+                    <button type="button" class="function_btn" id="pageSizeToggle"><span th:text="${pageSize} + '개'" style="margin-right: 7px;"></span><i class="fa-solid fa-caret-down" style="color: #c9c9c9;"></i></button>
+                    <div id="pageSizeToggleDiv" class="page_size_toggle_div">
+                        <div class="pageSizeOption" data-value="20">20개</div>
+                        <div class="pageSizeOption" data-value="50">50개</div>
+                        <div class="pageSizeOption" data-value="100">100개</div>
+                        <div class="pageSizeOption" data-value="200">200개</div>
+                        <div class="pageSizeOption" data-value="500">500개</div>
+                    </div>
+                </div>
+                <div class="product_list_delete">
+                    <button class="check_delete_btn function_btn" onclick="fnDelete()">선택 상품삭제</button>
+                </div>
+                <div class="product_list_function_change">
+                    <button type="button" class="check_change_btn function_btn" id="stateToggle">선택 상태변경&nbsp&nbsp<i class="fa-solid fa-caret-down" style="color: #c9c9c9;"></i></button>
+                    <div id="stateToggleDiv" class="state_toggle_div">
+                        <div name="productState" value="판매중" onclick="fnStateUpdate(this.getAttribute('value'))">판매중</div>
+                        <div name="productState" value="품절" onclick="fnStateUpdate(this.getAttribute('value'))">품절</div>
+                        <div name="productState" value="판매중지" onclick="fnStateUpdate(this.getAttribute('value'))">판매중지</div>
+                    </div>
+                </div>
+                <div class="product_list_function_excel">
+                    <button class="check_excel_btn function_btn" onclick="fnExcelDown()">엑셀 다운로드&nbsp<i class="fa-solid fa-file-excel" style="color: #14903d;"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="table_container">
+            <table class="product_list_table" id="productTable">
+                <tr>
+                    <th class="td_checkbox"><input type="checkbox" id="checkAll"></th>
+                    <th>번호</th>
+                    <th>판매상태</th>
+                    <th>상품명</th>
+                    <th>상품코드</th>
+                    <th>브랜드명</th>
+                    <th>제조사</th>
+                    <th>재고수</th>
+                    <th>정상가</th>
+                    <th>판매가</th>
+                    <th>대분류</th>
+                    <th>중분류</th>
+                    <th>소분류</th>
+                    <th>상품등록일</th>
+                    <th>최종수정일</th>
+                </tr>
+                <tr th:each="product : ${product}">
+                    <td class="td_checkbox"><input type="checkbox" name="listCheckBox" th:value="${product.productNo}"></td>
+                    <td th:text="${product.productNo}"></td>
+                    <td th:text="${product.productState}"></td>
+                    <td class="td_priceName"><a th:text="${product.productName}" th:href="'/dashboard/productDetail?productNo=' + ${product.productNo}"></a></td>
+                    <td th:text="${product.productCode}"></td>
+                    <td th:text="${product.productBrand}"></td>
+                    <td th:text="${product.manufacturer}"></td>
+                    <td th:text="${product.productStock}"></td>
+                    <td th:text="${product.originalPrice} + '&nbsp원'" name="originalPrice" class="td_price"></td>
+                    <td th:text="${product.salePrice} + '&nbsp원'" name="salePrice" class="td_price"></td>
+                    <td>
+                        <span th:each="cate1 : ${category}">
+                            <span th:each="cate2Parent : ${category}" th:if="${cate2Parent.categoryId == product.categoryEntity.parent.categoryId}">
+                                <span th:if="${cate2Parent.parentId == cate1.categoryId}" th:text="${cate1.categoryName}"></span>
+                            </span>
+                        </span>
+                    </td>
+                    <td th:each="cate2 : ${category}" th:if="${cate2.getCategoryId() == product.categoryEntity.parent.categoryId}" th:value="${cate2.categoryId}" th:text="${cate2.categoryName}"></td>
+                    <td th:text="${product.categoryEntity.categoryName}"></td>
+                    <td th:text="${product.createDate}"></td>
+                    <td th:text="${product.modifiedDate != null ? product.modifiedDate : ''}"></td>
+                </tr>
+            </table>
+            <input type="hidden" id="pageSizeInput" name="pageSize">
+        </div>
+        </form>
+        <!--페이징-->
+        <div class="product_list_page_container">
+            <span th:each="page : ${#numbers.sequence(startPage, endPage)}" class="page_number">
+                <a th:if="${page != nowPage}" th:onclick="'setSearchParam(' + ${page - 1} + ');'" th:text="${page}"></a>
+                <a th:if="${page == nowPage}" th:text="${page}" class="now_page_number"></a>
+            </span>
+
+        </div>
+    </div>
+
+</div>
+<script src="../JS/productList.js"></script>
+
+</body>
+</html>

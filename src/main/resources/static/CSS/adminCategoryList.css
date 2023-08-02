@@ -1,0 +1,26 @@
+.select_categoryList_container {
+    width: 100%;
+}
+
+.category_list_boxes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.cate_list_box {
+    width: 25%;
+    margin-right: 2%;
+}
+
+.cate_depth_container {
+    margin-top: 10px;
+    overflow: auto;
+    height: 200px;
+}
+
+.cate_depth_label {
+    font-weight: bolder;
+    border-bottom: 1px solid #a9a9a9;
+    color: #444444;
+}

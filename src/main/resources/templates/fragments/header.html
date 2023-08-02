@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="headerFragment" class="main_header" >
+
+  <div class="main_header_div">
+    <div class="logo_div">
+        <a href="/"><img src="../images/logo300_200.png" alt="로고" width="200px"></a>
+    </div>
+    <div class="a_div">
+        <a href="/service">서비스 소개</a>
+        <a href="/price">요금 안내</a>
+        <a href="/dashboard/main" style="color: red">@@@대시보드로 이동하기@@@</a>
+        <a href="/admin/main" style="color: red">@@관리페이지로 이동하기@@@</a>
+    </div>
+      <div class="login_div">
+        <div class="login_btn_div">
+            <button type="button" onclick="displayLoginModal()" sec:authorize="isAnonymous()">로그인</button>
+            <button type="button" onclick="location.href='/member/logout'" sec:authorize="isAuthenticated()">로그아웃</button>
+        </div>
+        <div class="join_btn_div">
+            <button type="button" onclick="location.href='/member/joinForm'" sec:authorize="isAnonymous()">체험하기</button>
+            <button type="button" onclick="location.href='/dashboard/main'" sec:authorize="hasRole('ROLE_MEMBER')">대시보드</button>
+            <button type="button" onclick="location.href='/admin/main'" sec:authorize="hasRole('ROLE_ADMIN')">관리자화면</button>
+        </div>
+    </div>
+  </div>
+    <div id="loginModal" class="modal">
+        <div class="modal_box">
+            <div class="close" onclick="hideModal()">&times;</div>
+            <div class="modal-content">
+                <span><img src="../images/logo300_200.png" width="250px" style="margin-top: -15px;"></span>
+                <div class="login_form_container" id="loginFormContainer"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 모달 표시 함수
+        function displayLoginModal() {
+            // AJAX 요청을 통해 loginForm.html 파일을 불러옴
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("loginFormContainer").innerHTML = xhr.responseText;
+                    document.getElementById("loginModal").style.display = "block";
+                    document.body.style.overflow = "hidden";
+                }
+            };
+            xhr.open("GET", "/main/loginForm", true);
+            xhr.send();
+        }
+
+        // 모달 숨김 함수
+        function hideModal() {
+            document.getElementById("loginModal").style.display = "none";
+            document.body.style.overflow = "";
+        }
+    </script>
+</div>
+</html>

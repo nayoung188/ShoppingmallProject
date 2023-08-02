@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate ="~{admin/adminFragments/adminLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>그로우투 카테고리 추가</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div layout:fragment="content">
+
+  <form th:action="@{/category/add}" method="post" id="frmCategory">
+  <div>
+    카테고리 추가하기
+  </div>
+
+    <div>
+      대분류
+      <input type="text" id="cate1Name">
+      <input type="hidden" value="0" id="cate1ParentID">
+      <div>
+      <button type="button" id="cate1btn" onclick="firstCate()"> 대분류 추가 </button>
+      </div>
+    </div>
+    <div>
+      중분류
+      <select id="cate2select">
+        <option th:each="categories : ${categories}" th:if="${categories.parentId == 0}" th:value="${categories.categoryId}" th:text="${categories.categoryName}">
+        </option>
+      </select>
+      <div>
+      <input type="text" id="cate2Name">
+      </div>
+      <div>
+      <button type="button" id="cate2btn" onclick="secondCate();"> 중분류 추가 </button>
+      </div>
+    </div>
+    <div>
+      소분류
+      <div>
+      <select id="cate1cateId">
+        <option th:each="categories : ${categories}" th:if="${categories.parentId == 0}" th:value="${categories.categoryId}" th:text="${categories.categoryName}">
+        </option>
+      </select>
+      </div>
+      <div>
+      <select id="cate2cateId">
+        <option>중분류</option>
+      </select>
+      </div>
+      <input type="text" id="cate3Name">
+      <div>
+      <button type="button" id="cate3btn" onclick="thirdCate();"> 소분류 추가 </button>
+      </div>
+    </div>
+  </form>
+  <script src="../JS/addCategory.js"></script>
+</div>
+</body>
+</html>

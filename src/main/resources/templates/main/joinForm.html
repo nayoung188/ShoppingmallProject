@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>그로우투</title>
+    <link rel="icon" type="image/png" href="../images/favicon_96.png" sizes="96x96"/>
+    <th:block th:insert="fragments/layoutStyle :: css"></th:block>
+    <link rel="stylesheet" th:href="@{../css/join.css}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+<script>
+    $(function() {
+        fn_checkAll();
+        fn_checkOne();
+        fn_toggleCheck();
+        // fn_emailCheck();
+        // fn_pwCheck();
+        // fn_rePwCheck();
+        // fn_nameCheck();
+        // fn_mobileCheck();
+        // fn_companyNameCheck();
+        // fn_companyNumberCheck();
+        //fn_join();
+    });
+
+    var emailPass = false;
+    var pwPass = false;
+    var rePwPass = false;
+    var namePass = false;
+    var mobilePass = false;
+    var companyNamePass = false;
+    var companyNumberPass = false;
+
+    /* 전체동의 */
+    function fn_checkAll(){
+        $('#checkAll').click(function (){
+           $('.check_one').prop('checked', $(this).prop('checked'));
+           if($(this).is(':checked')){
+               $('.check_one').addClass('label_checked');
+           } else {
+               $('.check_one').removeClass('label_checked');
+           }
+        });
+    }
+
+    function fn_checkOne(){
+        $('.check_one').click(function(){
+           let checkCount = 0;
+           for(let i = 0; i < $('.check_one').length; i++){
+               checkCount += $($('.check_one')[i]).prop('checked');
+           }
+           $('#checkAll').prop('checked',$('.check_one').length == checkCount);
+           if($('#checkAll').is(':checked')){
+               $('.check_all').addClass('label_checked');
+           } else {
+               $('.check_all').removeClass('label_checked');
+           }
+        });
+    }
+
+    function fn_toggleCheck(){
+        $('.check_all').click(function () {
+            var isChecked = $(this).is(':checked');
+            var value = isChecked ? 'Y' : 'N';
+            $('.check_one').val(value).toggleClass('label_checked', isChecked);
+        });
+        $('.check_one').click(function () {
+            var isChecked = $(this).is(':checked');
+            var value = isChecked ? 'Y' : 'N';
+            $(this).val(value);
+        });
+    }
+
+    function fn_emailCheck(){
+        let regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        $('#email').focusout(function(){
+            let emailValue = $('#email').val();
+            if(regEmail.test(emailValue) == false){
+                $('#msg_email').text("이메일 형식이 올바르지 않습니다.");
+                emailPass = false;
+            } else {
+                $('#msg_email').text('');
+            }
+        });
+        $('#btnCheckSameEmail').click(function(){
+            let emailValue = $('#email').val();
+            checkEmailDuplicate(emailValue);
+
+        });
+        function checkEmailDuplicate(emailValue){
+            if (regEmail.test(emailValue) == true) {
+                $.ajax({
+                    type: 'post',
+                    url: '/member/checkEmail',
+                    data: {'memberEmail': emailValue},
+                    dataType: 'text',
+                    success: function(result) {
+                        if(result == "중복없음") {
+                            alert("사용 가능한 이메일입니다.");
+                            emailPass = true;
+                        } else if(result == "중복") {
+                            alert("이미 가입된 이메일입니다.");
+                            emailPass = false;
+                        } else {
+                            alert("사용 불가능한 이메일입니다.");
+                            emailPass = false;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    function fn_pwCheck(){
+        $('#memberPw').focusout(function(){
+           let pwValue = $(this).val();
+           let regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$~!@#$%^&*?]{8,}$/;
+           if(!regPw.test(pwValue)){
+               $('#msg_pw').text("비밀번호는 영문, 숫자, 특수문자를 3개 이상 조합한 8자 이상이어야 합니다.");
+               pwPass = false;
+           } else {
+               $('#msg_pw').text('');
+               pwPass = true;
+           }
+        });
+    }
+
+    function fn_rePwCheck(){
+        $('#reMemberPw').focusout(function(){
+           let rePwValue = $(this).val();
+           if(rePwValue != $('#memberPw').val() || rePwValue == ''){
+               $('#msg_repw').text("비밀번호가 일치하지 않습니다.");
+               rePwPass = false;
+           } else {
+               $('#msg_repw').text('');
+               rePwPass = true;
+           }
+        });
+    }
+
+    function fn_nameCheck(){
+        $('#memberName').focusout(function (){
+            let nameValue = $(this).val();
+            let regName = /^[가-힣]+$/;
+            if(regName.test(nameValue) == false || nameValue == ''){
+                $('#msg_name').text("공백없이 한글만 입력해주세요.");
+                namePass = false;
+            } else {
+                $('#msg_name').text('');
+                namePass = true;
+            }
+        });
+    }
+
+    function fn_mobileCheck(){
+        $('#memberMobile').focusout(function (){
+           let mobileValue = $(this).val();
+           let regMobile = /^010[0-9]{7,8}$/;
+           if(regMobile.test(mobileValue) == false){
+               $('#msg_mobile').text("핸드폰번호를 확인하세요.");
+               mobilePass = false;
+           } else {
+               $('#msg_mobile').text('');
+               mobilePass = true;
+               fn_sendAuthCode();
+           }
+        });
+    }
+
+    function fn_sendAuthCode(){
+        $('#btnSendAuthCode').click(function (){
+            let memberMobile = document.getElementById("memberMobile").value;
+            $.ajax({
+                url: "/sms/sendAuthCode",
+                type: "POST",
+                data: memberMobile,
+                contentType: "application/json",
+                success: function (response){
+                    alert("인증번호가 발송되었습니다.");
+                    $('#btnCheckAuthCode').click(function(){
+                        if(response === $('#memberMobileCode').val()){
+                            alert('인증 되었습니다.');
+                            mobilePass = true;
+                        } else {
+                            alert('인증에 실패했습니다.');
+                            mobilePass = false;
+                            return;
+                        }
+                    });
+                },
+                error: function (){
+                    console.log("문자 발송 실패");
+                    mobilePass = false;
+                }
+            });
+        });
+    }
+
+    function fn_companyNameCheck(){
+        $('#companyName').focusout(function (){
+            let companyNameValue = $(this).val();
+            let regCompanyName = /^[가-힣\s|a-zA-Z\s]+$/
+            if(regCompanyName.test(companyNameValue) == false || companyNameValue == ''){
+                $('#msg_companyName').text("회사이름은 한글, 영문으로만 입력해주세요.");
+                companyNamePass = false;
+            } else{
+                $('#msg_companyName').text('');
+                companyNamePass = true;
+            }
+        });
+    }
+
+    function fn_companyNumberCheck(){
+        $('#companyNumber').focusout(function (){
+           let companyNumberValue = $(this).val();
+           let regCompanyNumber = /^[0-9]{10,}$/;
+           if(regCompanyNumber.test(companyNumberValue) == false || companyNumberValue ==''){
+               $('#msg_companyNumber').text("사업자번호는 10자 숫자만 입력해주세요.");
+               companyNumberPass = false;
+           } else {
+               $('#msg_companyNumber').text('');
+               companyNumberPass = true;
+           }
+        });
+    }
+
+    function fn_join(){
+        $('#frm_join').submit(function (event){
+             if($('#useAgree').is(':checked') == false || $('#privacyAgree').is(':checked') == false){
+                 alert("필수 약관에 동의하세요.");
+                 event.preventDefault();
+                 return;
+             } else if(emailPass == false){
+                alert("이메일을 확인하세요.");
+                event.preventDefault();
+                return;
+             } else if(pwPass == false || rePwPass == false){
+                alert("비밀번호를 확인하세요.");
+                event.preventDefault();
+                return;
+             } else if(namePass == false){
+                alert("이름을 확인하세요.");
+                event.preventDefault();
+                return;
+             } else if(mobilePass == false){
+                alert("핸드폰인증을 진행해주세요.");
+                event.preventDefault();
+                return;
+             } else if(companyNamePass == false){
+                alert("회사명을 확인하세요.");
+                event.preventDefault();
+                return;
+             } else if(companyNumberPass == false){
+                alert("사업자번호를 확인하세요.");
+                event.preventDefault();
+                return;
+             }
+        });
+    }
+
+</script>
+<body>
+    <div th:replace="fragments/header :: headerFragment"></div>
+    <form action="/member/join" method="post" id="frm_join">
+<div class="join_container">
+    <div class="join_spacer"></div>
+    <div class="join_content_box">
+        <div class="join_content">
+            <p>회원가입</p>
+            <div class="join_agree_div">
+                <span class="title_span">약관동의</span>
+                <span class="sub_title_span">그로우투 이용약관 내용을 확인 후 동의해 주세요.</span>
+                <hr>
+                <div class="check_box_list">
+                    <div class="check_all_div">
+                        <input type="checkbox" id="checkAll" class="check_all">
+                        <label for="checkAll">약관 전체동의</label>
+                    </div>
+                    <div class="check_necessary">
+                        <input type="checkbox" id="useAgree" name="useAgree" class="check_one">
+                        <label for="useAgree"><span class="span_red">[필수]&nbsp;&nbsp;</span><span>그로우투 이용약관</span></label>
+                    </div>
+                    <div class="check_necessary">
+                        <input type="checkbox" id="privacyAgree" name="privacyAgree" class="check_one">
+                        <label for="privacyAgree"><span class="span_red">[필수]&nbsp;&nbsp;</span><span>개인정보 처리방침 확인 및 동의</span></label>
+                    </div>
+                    <div class="check_choice">
+                        <input type="checkbox" id="marketingAgree" name="marketingAgree" class="check_one">
+                        <label for="marketingAgree"><span>[선택]&nbsp;&nbsp;</span><span>혜택 정보 제공을 위한 개인정보 수집 동의</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="join_information_div">
+                <span class="title_span">회원정보 입력</span>
+                <span class="info_sub_title_span">*  필수 입력값 입니다.</span>
+                <hr>
+                <div class="join_info_write_section">
+                    <div class="join_email_div">
+                        <span>이메일 ID</span>
+                        <span class="span_red">*</span>
+                        <br>
+                        <input type="text" name="memberEmail" id="email" placeholder="이메일 주소를 입력해 주세요.">
+                        <button type="button" id="btnCheckSameEmail">중복확인</button>
+                        <br>
+                        <span class="notice_span" id="msg_email"></span>
+                    </div>
+                    <div class="join_password_div">
+                        <span>비밀번호</span>
+                        <span class="span_red">*</span>
+                        <br>
+                        <input type="password" id="memberPw" name="memberPw" placeholder="영문, 숫자, 특수문자를 조합한 8자 이상">
+                        <br>
+                        <span class="notice_span" id="msg_pw"></span>
+                    </div>
+                    <div class="join_password_check_div">
+                        <span>비밀번호 확인</span>
+                        <span class="span_red">*</span>
+                        <br>
+                        <input type="password" id="reMemberPw" placeholder="비밀번호를 한 번 더 입력해 주세요.">
+                        <br>
+                        <span class="notice_span" id="msg_repw"></span>
+                    </div>
+                    <div class="join_name_div">
+                        <span>이름</span>
+                        <span class="span_red">*</span>
+                        <br>
+                        <input type="text" id="memberName" name="memberName" placeholder="이름을 입력해주세요.">
+                        <br>
+                        <span class="notice_span" id="msg_name"></span>
+                    </div>
+                    <div class="join_mobile_div">
+                        <span>휴대폰 번호</span>
+                        <span class="span_red">*</span>
+                        <br>
+                        <input type="text" id="memberMobile" name="memberMobile" placeholder="'-'를 제외한 숫자만 입력해 주세요.">
+                        <button type="button" id="btnSendAuthCode">인증번호 받기</button>
+                        <div style="height: 3px; margin: 0;"></div>
+                        <input type="text" id="memberMobileCode" placeholder="인증번호를 입력해 주세요.">
+                        <button type="button" id="btnCheckAuthCode">인증번호 확인</button>
+                        <br>
+                        <span class="notice_span" id="msg_mobile"></span>
+                    </div>
+                    <div class="join_company_name_div">
+                        <span>회사명</span>
+                        <span class="span_red">*</span>
+                        <br>
+                        <input type="text" id="companyName" name="companyName" placeholder="회사명을 입력해 주세요.">
+                        <br>
+                        <span class="notice_span" id="msg_companyName"></span>
+                    </div>
+                    <div class="join_company_number_div">
+                        <span>사업자 번호</span>
+                        <span class="span_red">*</span>
+                        <br>
+                        <input type="text" id="companyNumber" name="companyNumber" placeholder="'-'를 제외한 숫자만 입력해 주세요.">
+                        <br>
+                        <span class="notice_span" id="msg_companyNumber"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="join_button_div">
+                <button type="submit">회원가입</button>
+            </div>
+        </div>
+    </div>
+    <div class="join_spacer"></div>
+</div>
+    </form>
+</body>
+</html>

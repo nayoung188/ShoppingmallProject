@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div class="login_modal">
+    <form th:field="loginFrm" action="/member/loginForm" method="post">
+    <div class="login_modal_content">
+        <div class="input_div">
+            <input type="email" class="email_input" id="memberEmail" name="memberEmail" placeholder="이메일">
+        </div>
+        <div class="input_div">
+            <input type="password" class="pw_input" id="memberPw" name="memberPw" placeholder="비밀번호">
+        </div>
+        <div class="login_button">
+            <button type="submit" class="btn_login">로그인</button>
+        </div>
+
+        <hr>
+
+        <div class="social_login">
+            <div class="gSignInWrapper">
+                <div id="customBtn" class="customGPlusSignIn">
+                    <span class="icon"></span>
+                    <span class="buttonText">Google 로그인</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="social_login">
+            <div class="naverSignWrapper">
+                <div class="customNaverbtn">
+                    <span class="icon"></span>
+                    <span class="buttonText">네이버 로그인</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal_footer">
+            <a href="/member/find">아이디┃비밀번호 찾기</a>
+            <a href="/member/joinForm">회원가입하기</a>
+        </div>
+    </div>
+    </form>
+</div>
+</html>

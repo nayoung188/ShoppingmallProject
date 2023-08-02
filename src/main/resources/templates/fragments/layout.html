@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="icon" type="image/png" href="../images/favicon_96.png" sizes="96x96"/>
+    <th:block th:insert="fragments/layoutStyle :: css"></th:block>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: headerFragment"></div>
+    <div layout:fragment="index"></div>
+    <div th:insert="fragments/footer :: footerFragment"></div>
+
+</body>
+</html>

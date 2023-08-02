@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate ="~{admin/adminFragments/adminLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>그로우투 관리자페이지</title>
+    <link rel="stylesheet" th:href="@{../css/adminMemberList.css}" />
+</head>
+<body layout:fragment="content">
+    <div class="admin_memberList_container">
+        <div class="admin_memberList_title">회원 리스트</div>
+        <div class="admin_memberList_table_div">
+            <table class="admin_memberList_table">
+                <tr class="admin_memberList_table_header">
+                    <th>회원번호</th>
+                    <th>이메일</th>
+                    <th>이름</th>
+                    <th>핸드폰번호</th>
+                    <th>회사명</th>
+                    <th>사업자번호</th>
+                    <th>마케팅동의</th>
+                    <th>상태</th>
+                </tr>
+                <tr th:each="member : ${memberList}" class="admin_memberList_table_body">
+                    <td th:text="${member.memberNo}"></td>
+                    <td th:text="${member.memberEmail}"></td>
+                    <td th:text="${member.memberName}"></td>
+                    <td th:text="${member.memberMobile}"></td>
+                    <td th:text="${member.companyName}"></td>
+                    <td th:text="${member.companyNumber}"></td>
+                    <td th:text="${member.marketingAgree}"></td>
+                    <td th:text="${member.role}"></td>
+                    <th><button th:if="${member.role == 'MEMBER'}" type="button" class="btn_member" onclick="approve();">승인</button>
+                        <button th:if="${member.role == 'MANAGER'}" type="button" class="btn_manager" onclick="approve();">관리</button>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <!--페이징-->
+        <div class="memberList_paging_container">
+            <span th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <a th:if="${page != nowPage}" th:href="@{/admin/memberList(page = ${page - 1})}" th:text="${page}"></a>
+                <strong th:if="${page == nowPage}" th:text="${page}" style="color: #0075d2"></strong>
+            </span>
+        </div>
+    </div>
+<script>
+    function approve(){
+        alert("승인처리하쉴?");
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" type="image/png" href="../../images/favicon_96.png" sizes="96x96"/>
+  <title>그로우투 대시보드</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="../../bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<!--  <link-->
+<!--          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"-->
+<!--          rel="stylesheet">-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/919dd5725e.js" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template-->
+  <link href="../../bootstrap/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
+
+  <script src="../../bootstrap/vendor/jquery/jquery.min.js"></script>
+
+</head>
+<body id="page-top">
+<div id="wrapper">
+
+  <!-- sidebar fragment 사용 -->
+  <th:block th:insert="dashboard/dashboardFragments/dashboardSidebar :: sidebarFragment"></th:block>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <!-- header fragment 사용 -->
+      <th:block th:replace="dashboard/dashboardFragments/dashboardHeader :: headerFragment"></th:block>
+      <div class="container-fluid">
+        <!-- content fragment 사용 -->
+        <th:block layout:fragment="content"></th:block>
+      </div>
+    </div>
+    <!-- footer fragment 사용 -->
+    <th:block th:replace="dashboard/dashboardFragments/dashboardfooter :: footerFragment"></th:block>
+  </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="../../bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../../bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../../bootstrap/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<!--<script src="../../bootstrap/vendor/chart.js/Chart.min.js"></script>-->
+
+<!--&lt;!&ndash; Page level custom scripts &ndash;&gt;-->
+<!--<script src="../../bootstrap/js/demo/chart-area-demo.js"></script>-->
+<!--<script src="../../bootstrap/js/demo/chart-pie-demo.js"></script>-->
+
+
+</body>
+</html>

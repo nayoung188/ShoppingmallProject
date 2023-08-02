@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../images/favicon_96.png" sizes="96x96"/>
+    <title>그로우투 관리자페이지</title>
+    <th:block layout:fragment="css"><link rel="stylesheet" th:href="@{../CSS/adminLayout.css}" /></th:block>
+</head>
+<body>
+<header>
+    <th:block th:replace="admin/adminFragments/adminHeader :: headerFragment"></th:block>
+</header>
+    <div class="admin_content_container">
+        <th:block layout:fragment="content"></th:block>
+    </div>
+</body>
+</html>

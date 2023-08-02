@@ -1,0 +1,200 @@
+input:focus {
+    outline: none;
+}
+
+li, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+button{
+    outline: none;
+    border: none;
+    background-color: #FFFFFF;
+}
+
+
+.insert_box {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+}
+
+.sellerInfo_title_first{
+    font-size: 12px;
+}
+
+.sellerInfo_title_second{
+    font-size: 32px;
+    font-weight: bold;
+    color: #4f4f4f;
+}
+
+.div_info_name {
+    font-size: 24px;
+    color: #4f4f4f;
+}
+
+.label_name {
+    width: 180px;
+    margin-bottom: auto;
+    color: #5a5c69;
+}
+
+.input_box_div{
+    border: 1px solid #cccdd4;
+    width: 350px;
+    height: 40px;
+    margin-right: 20px;
+}
+
+.input_text_style {
+    border: none;
+    width: 97%;
+    padding: 7px 0 0 10px;
+    color: #5a5c69;
+    font-size: 14px;
+}
+
+.align_center_and_margin_bottom {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.notice_message {
+    font-size: 11px;
+    color: #ff4040;
+}
+
+.info_alert_message {
+    color: #ff4040;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+.btn_center {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.input_margin_bottom {
+    margin-bottom: 15px;
+}
+
+.bank_option_button{
+    width: 185px;
+    border: 1px solid #cccdd4;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #5a5c69;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.bank_option_div:hover {
+    cursor: pointer;
+}
+
+.arrow_icon_css {
+}
+
+.selected {
+    background-color: rgba(0, 117, 210, 0.05);
+    font-weight: bolder;
+}
+
+.bank_option_list {
+    padding: 0;
+    width: 185px;
+    display: none;
+    position: absolute;
+    background-color: #FFFFFF;
+    max-height: 200px;
+    overflow-y: auto;
+    border-bottom: 1px solid #cccdd4;
+}
+
+.bank_option {
+    border: 1px solid #cccdd4;
+    border-top: none;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 19px;
+    color: #5a5c69;
+}
+
+.bank_option:hover {
+    background-color: rgba(0, 117, 210, 0.05);
+    font-weight: bolder;
+}
+
+.border_bottom_none {
+    border-bottom: none;
+}
+
+.btn_css {
+    border: none;
+    background-color: #4e73df;
+    height: 40px;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 0px 10px;
+    border-radius: 5px;
+}
+
+.btn_css:hover{
+    background-color: #3b56a6;
+    transition: 0.3s;
+}
+
+.label_btn {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.modal_inputs{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 15px 0;
+    margin: 30px 0 30px 0;
+}
+
+.post_input_btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 350px;
+}
+
+.post_input_div {
+    width: 220px !important;
+}
+
+.margin_zero {
+    margin: 0 !important;
+}
+
+.manager_select_css{
+    border: 1px solid #cccdd4;
+    color: #858796;
+    font-size: 14px;
+    padding: 8px;
+}
+select:focus {
+    outline: none;
+}
+
+select option:hover {
+    background-color: rgba(0, 117, 210, 0.05);
+}

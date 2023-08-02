@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>vision API</title>
+        <style>
+            .visionAPI_box {
+                width: 70%;
+                margin: auto;
+                text-align: center;
+            }
+            .drop_zone {
+                width: 300px;
+                height: 200px;
+                margin: auto;
+                border: 2px dashed #ccc;
+                border-radius: 5px;
+                padding: 20px;
+                text-align: center;
+                font-size: 18px;
+                cursor: pointer;
+            }
+            .drop_zone.highlight {
+                border-color: #0096ff;
+                background-color: rgba(0, 150, 255, 0.11);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="visionAPI_box">
+            <h1>VISION API를 사용한 LABEL 추출</h1>
+
+            <label for="fileInput" style="display: inline-block;">
+            <div class="drop_zone" id="dropZone" onmouseover="handleMouseOver(event);" onmouseout="handleMouseOut(event);" ondragover="handleDragOver(event);" ondragleave="handleDragLeave(event);" ondrop="handleDrop(event);">
+                <form action="#" th:action="@{/upload}" method="post" th:enctype="'multipart/form-data'" id="uploadForm">
+                    <input type="file" id="fileInput" name="files" accept="image/*" style="display: none;" multiple hidden />
+                    <p style="color: #cccccc; font-weight: bold; text-align: center; padding-top: 20%;" >여기에 이미지를 드래그하세요</p>
+                </form>
+            </div>
+            </label>
+
+            <div>
+                <h3>라벨링 결과</h3>
+                <div class="result_box" style="display: flex;flex-direction: row;">
+                    <div class="image_box" id="imageDiv">
+                        <img th:each="imageSource : ${imageSources}" th:src="${imageSource}" class="image_box" />
+                    </div>
+                    <div>
+                        <ul>
+                            <th:block th:each="label : ${labels}">
+                                <li th:text="${label}"></li>
+                            </th:block>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+    <script>
+        function handleMouseOver(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById("dropZone").classList.add("highlight");
+        }
+
+        function handleMouseOut(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById("dropZone").classList.remove("highlight");
+        }
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById("dropZone").classList.add("highlight");
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById("dropZone").classList.remove("highlight");
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById("dropZone").classList.remove("highlight");
+
+            var files = event.dataTransfer.files;
+            if (files && files.length > 0) {
+                document.getElementById("fileInput").files = files;
+                document.getElementById("uploadForm").submit();
+                showImage(files[0]);
+            }
+        }
+
+        function showImage(file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var imageDiv = document.getElementById("imageDiv");
+                var imgElement = document.createElement("img");
+                imgElement.src = e.target.result;
+                imgElement.classList.add("image_box");
+                imageDiv.appendChild(imgElement);
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+
+</html>

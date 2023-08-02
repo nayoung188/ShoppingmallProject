@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate ="~{admin/adminFragments/adminLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>그로우투 카테고리</title>
+    <link rel="stylesheet" th:href="@{../css/adminCategoryList.css}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <a href="/admin/addCategory">카테고리 추가하기</a>
+    <div class="category_list_boxes">
+        <div class="cate_list_box">
+            <div class="cate_depth_label">1차 분류</div>
+            <div class="cate_depth_container">
+                <div class="depth_list" id="1depthList" th:each="category : ${categories}" th:if="${category.depth == 1}">
+                    <span th:text="${category.categoryName}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="cate_list_box">
+            <div class="cate_depth_label">2차 분류</div>
+            <div class="cate_depth_container">
+                <div class="depth_list" id="2depthList" th:each="category : ${categories}" th:if="${category.depth == 2}" >
+                    <span th:text="${category.categoryName}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="cate_list_box">
+            <div class="cate_depth_label">3차 분류</div>
+            <div class="cate_depth_container">
+                <div class="depth_list" id="3depthList" th:each="category : ${categories}" th:if="${category.depth == 3}" th:text="${category.categoryName}"></div>
+            </div>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <td></td>
+            <td>카테고리Id</td>
+            <td>카테고리명</td>
+            <td>상위 카테고리Id</td>
+            <td>상위 카테고리명</td>
+        </tr>
+        <tr th:each="category : ${categories}">
+            <td>
+                <span th:if="${category.depth == 1}" th:text="대분류"></span>
+                <span th:if="${category.depth == 2}" th:text="중분류"></span>
+                <span th:if="${category.depth == 3}" th:text="소분류"></span>
+            </td>
+            <td><span th:text="${category.categoryId}" th:value="${category.categoryId}"></span></td>
+            <td><span th:text="${category.categoryName}"></span></td>
+            <td><span th:text="${category.parentId}"></span></td>
+            <td><span th:text="${category.parentName}"></span></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

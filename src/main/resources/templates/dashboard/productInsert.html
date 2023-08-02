@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/dashboardFragments/dashboardLayout}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../images/favicon_96.png" sizes="96x96"/>
+    <title>그로우투 상품관리</title>
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{../css/productInsert.css}"/>
+    </th:block>
+
+<!--    <script src="https://kit.fontawesome.com/919dd5725e.js" crossorigin="anonymous"></script>-->
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>-->
+
+
+    <!-- summernote editor-->
+    <script src="../summernote/summernote-lite.js"></script>
+    <script src="../summernote/lang/summernote-ko-KR.js"></script>
+    <link rel="stylesheet" href="../summernote/summernote-lite.css">
+</head>
+
+<body layout:fragment="content" style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+<script>
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            height: 600,
+            lang: "ko-KR",
+            callbacks:{
+                onImageUpload: function (files){
+                    for(var i=0; i < files.length; i++){
+                        var formData = new FormData();
+                        formData.append('file', files[i]);
+                        var uploadRequest = new Promise(function (resolve,reject){
+                            $.ajax({
+                                type: "POST",
+                                url: "/uploadSummernoteImageFile",
+                                data: formData,
+                                contentType: false,
+                                processData: false,
+                                dataType: 'json',
+                                success: function (resData){
+                                    resolve(resData);
+                                    console.log(resData);
+                                },
+                                error: function (xhr, textStatus, errorThrown){
+                                    reject(errorThrown);
+                                }
+                            });
+                        });
+                        uploadRequest.then(function (resData){
+                           $('#summernote').summernote('insertImage', resData.src);
+                            console.log(resData.src);
+                        }).catch(function(error) {
+                            console.error('Error uploading image:', error);
+                        });
+                    }
+                }
+            }
+        });
+    });
+
+</script>
+
+<div class="product_insert_container">
+    <form id="frmInsertProd" th:action="@{/insertProduct}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:value="${memberId}" name="memberEmail">
+    <div class="product_insert_title insert_box">
+        <div class="prod_title_first">상품관리 > 상품 등록</div>
+        <div class="prod_title_second">상품 등록</div>
+    </div>
+    <div class="product_insert_information_container">
+        <div class="div_basic_info insert_box">
+            <div class="div_info_name">기본정보</div>
+            <hr>
+            <div class="div_state align_center_and_margin_bottom">
+                <div class="label_name">
+                    판매상태
+                </div>
+                <div class="radio_btn_container">
+                    <label for="sale_state_1" class="radio_btn">
+                        <input class="radio_input" type="radio" id="sale_state_1" name="productState" value="판매가능">
+                        <span class="radio_span">판매가능</span>
+                    </label>
+                    <label for="sale_state_2" class="radio_btn">
+                        <input class="radio_input" type="radio" id="sale_state_2" name="productState" value="판매중">
+                        <span class="radio_span">판매중</span>
+                    </label>
+                    <label for="sale_state_3" class="radio_btn">
+                        <input class="radio_input" type="radio" id="sale_state_3" name="productState" value="품절">
+                        <span class="radio_span">품절</span>
+                    </label>
+                    <label for="sale_state_4" class="radio_btn">
+                        <input class="radio_input" type="radio" id="sale_state_4" name="productState" value="판매중지">
+                        <span class="radio_span">판매중지</span>
+                    </label>
+                </div>
+            </div>
+            <div class="div_category align_center_and_margin_bottom">
+                <div class="label_name">카테고리</div>
+                <div class="div_input_and_api">
+                    <div class="select_category_box_div">
+                        <div class="select_categoryList_container">
+                            <div class="category_list_boxes">
+                                <div class="cate_list_box">
+                                    <div class="cate_depth_label">1차 분류</div>
+                                    <div class="cate_depth_container cate_depth_div_contain">
+                                        <div class="depth_list category_hover" th:each="category : ${category}" th:if="${category.depth == 1}">
+                                            <label th:for="'selectedCategory_' + ${category.categoryId}" class="radio_span_label">
+                                            <input type="radio" th:id="'selectedCategory_' + ${category.categoryId}" name="selectedCategory" th:data-category-id="${category.categoryId}" th:value="${category.categoryName}" onchange="showDepth2List(this)">
+                                            <span class="first_cate_name" th:text="${category.categoryName}"></span>
+                                            <span><i class="fa-solid fa-caret-right fa-xs" style="color: #858796;"></i></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cate_list_box">
+                                    <div class="cate_depth_label">2차 분류</div>
+                                    <div class="cate_depth_container">
+                                        <div id="2depthList" class="cate_depth_div_contain"></div>
+                                    </div>
+                                </div>
+                                <div class="cate_list_box">
+                                    <div class="cate_depth_label">3차 분류</div>
+                                    <div class="cate_depth_container">
+                                        <div id="3depthList" class="cate_depth_div_contain"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="select_cate_name_container">
+                                <div class="select_cate_name_title">선택한 카테고리 👉</div>
+                                <div class="select_cate_name_1 select_cate_name_box"></div>
+                                <span class="select_cate_name_arrow"><i class="fa-solid fa-caret-right fa-xs"></i></span>
+                                <div class="select_cate_name_2 select_cate_name_box"></div>
+                                <span class="select_cate_name_arrow"><i class="fa-solid fa-caret-right fa-xs"></i></span>
+                                <div class="select_cate_name_3 select_cate_name_box"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div_toggle_label_container">
+                        <div class="toggle_btn_container">
+                            <input type="checkbox" id="api_toggle_btn" class="sc-gJwTLC ikxBAC">
+                            <label for="api_toggle_btn" class="ai_toggle_label_text">AI로 카테고리 만들기</label>
+                        </div>
+                        <div class="label_api_container">
+                            <hr class="label_box_hr">
+                            <div class="visionAPI">
+                                <label for="fileInput" style="display: inline-block;">
+                                    <div class="drop_zone" id="dropZone" onmouseover="handleMouseOver(event);"
+                                         onmouseout="handleMouseOut(event);" ondragover="handleDragOver(event);"
+                                         ondragleave="handleDragLeave(event);" ondrop="handleDrop(event);">
+                                        <input type="file" class="input_type_file" id="fileInput" name="files"
+                                               accept="image/*"
+                                               onchange="handleFileInput()"/>
+                                        <p class="visionAPI_P_draghere">여기에 이미지를 드래그하세요</p>
+                                    </div>
+                                </label>
+                                <div class="image_box" id="imageDiv"></div>
+                            </div>
+                            <div class="div_labeling_result">
+                                <div class="label_result_name_bax">라벨링 결과</div>
+                                <hr class="label_box_hr">
+                                <div class="result_box">
+                                    <div class="result_label_list label_box" id="labelList"></div>
+                                </div>
+                                <div class="label_result_name_bax">선택한 카테고리</div>
+                                <hr class="label_box_hr">
+                                <div class="check_label_box">
+                                    <ul class="result_check_label_list label_box" id="checkedLabelList"></ul>
+                                </div>
+                            </div>
+                            <div class="div_btn_gpt">
+                                <button type="button" id="btnGPT" name="btnGPT" class="btn_gpt">AI에게 카테고리 추천받기</button>
+                            </div>
+                            <div class="div_gpt_result">
+                                <div class="label_result_name_bax">AI가 추천하는 카테고리</div>
+                                <div class="gpr_recommend_box">
+                                    <div id="gptRecommend">
+                                        <div class="gptRecommTitle">▶ 추천 키워드</div>
+                                        <div id="gptRecommendCategory"></div>
+                                        <div class="gptRecommTitle">▶ 추천 상세설명 문구</div>
+                                        <div id="gptRecommendDescription"></div>
+                                    </div>
+                                    <hr>
+                                    <div id="selectRecommends">
+                                        <div id="selectRecommendCategory"></div>
+                                        <div id="selectRecommendDescription"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="div_prod_name align_center_and_margin_bottom">
+                <div class="label_name">상품명</div>
+                <div class="input_box_div">
+                    <input type="text" class="input_text_style" name="productName">
+                </div>
+            </div>
+            <div class="div_prod_code align_center_and_margin_bottom">
+                <div class="label_name">상품코드</div>
+                <div class="input_box_div">
+                    <input type="text" class="input_text_style" name="productCode">
+                </div>
+            </div>
+            <div class="div_prod_brand align_center_and_margin_bottom">
+                <div class="label_name">브랜드명</div>
+                <div class="input_box_div">
+                    <input type="text" class="input_text_style" name="productBrand">
+                </div>
+            </div>
+            <div class="div_prod_maker align_center_and_margin_bottom">
+                <div class="label_name">제조사</div>
+                <div class="input_box_div">
+                    <input type="text" class="input_text_style" name="manufacturer">
+                </div>
+            </div>
+        </div>
+
+        <div class="div_price_info insert_box">
+            <div class="div_info_name">가격정보</div>
+            <hr>
+            <div class="div_price_original align_center_and_margin_bottom">
+                <div class="label_name">정상가</div>
+                <div class="input_box_div">
+                    <input type="text" class="input_text_style price_align" name="originalPrice" onkeyup="inputPriceFormat(this)">
+                    <span class="price_span_won">원</span>
+                </div>
+            </div>
+            <div class="div_price_discount align_center_and_margin_bottom">
+                <div class="label_name">판매가</div>
+                <div class="input_box_div">
+                    <input type="text" class="input_text_style price_align" name="salePrice" onkeyup="inputPriceFormat(this)">
+                    <span class="price_span_won">원</span>
+                </div>
+            </div>
+        </div>
+        <div class="div_product_info insert_box">
+            <div class="div_info_name">상품정보</div>
+            <hr>
+            <div class="div_img_main align_center_and_margin_bottom">
+                <div class="label_name">대표이미지</div>
+                <div class="main_image_container">
+                    <div class="image_thumbnail" id="mainThumbnail">
+                        <i class="fa-regular fa-image" onclick="mainFileUpload()"></i>
+                    </div>
+                    <div class="file_btn_container">
+                        <label for="mainImage" class="file_label_btn">메인 이미지 업로드</label>
+                        <input class="img_file_input" type="file" id="mainImage" name="mainImage" onchange="setMainThumbnail(event);">
+                        <input class="main_file_name file_name" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="div_img_sub align_center_and_margin_bottom">
+                <div class="label_name">추가이미지</div>
+                <div class="sub_images_container">
+                    <div class="image_thumbnail" id="subThumbnail">
+                        <i class="fa-regular fa-image" onclick="subFileUpload()"></i>
+                        <div id="subThumbnails"></div>
+                    </div>
+                    <div class="file_btn_container">
+                        <label for="subImages" class="file_label_btn">추가 이미지 업로드</label>
+                        <input class="img_file_input" type="file" id="subImages" name="subImages" onchange="setSubThumbnail(event);" multiple>
+                        <input class="sub_file_name file_name" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div_detail_info insert_box">
+            <div class="div_info_name">상세정보</div>
+            <hr>
+            <div class="div_info_stock align_center_and_margin_bottom">
+                <div class="label_name">재고수</div>
+                <div class="input_box_div">
+                    <input type="text" class="input_text_style" name="productStock">
+                </div>
+            </div>
+<!--            <div class="div_info_option align_center_and_margin_bottom">-->
+<!--                <div class="label_name">상품옵션</div>-->
+<!--                <div class="option_box">-->
+<!--                    <div class="option_input_container">-->
+<!--                        <div class="input_box_div" id="optionInputBox">-->
+<!--                            <input type="text" class="input_text_style">-->
+<!--                        </div>-->
+<!--                        <div class="plus_icon_div">-->
+<!--                            <i class="fa-regular fa-square-plus" onclick="addOptionInput()"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="div_info_detail align_center_and_margin_bottom">
+                <div class="label_name">상품 상세 정보</div>
+                <div class="summer_note_container">
+                    <textarea class="summernote" id="summernote" name="productContent"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="div_delivery_info_container insert_box">
+            <div class="div_info_name">배송정보</div>
+            <hr>
+            <div class="div_delivery_info align_center_and_margin_bottom">
+                <div class="label_name">출고지 정보</div>
+                <select>
+                    <option selected>출고지 정보 선택</option>
+                    <option>배송비정책명 1</option>
+                    <option>배송비정책명 2</option>
+                    <option>배송비정책명 3</option>
+                    <option>배송비정책명 4</option>
+                </select>
+            </div>
+            <div class="div_delivery_info align_center_and_margin_bottom">
+                <div class="label_name">반품/교환지 정보</div>
+                <select>
+                    <option selected>반품/교환지 정보 선택</option>
+                    <option>배송비정책명 1</option>
+                    <option>배송비정책명 2</option>
+                    <option>배송비정책명 3</option>
+                    <option>배송비정책명 4</option>
+                </select>
+            </div>
+        </div>
+        <div class="div_connect_info insert_box">
+            <div class="div_info_name">연동정보</div>
+            <hr>
+            <div class="div_connect_setting align_center_and_margin_bottom">
+                <div class="label_name">연동설정</div>
+                <div class="div_connect_list">
+                    <div class="toggle_btn_container">
+                        <div class="div_toggle_btn_label_span">
+                            <input id="smartstoreCheck" type="checkbox" class="sc-gJwTLC ikxBAC"/>
+                            <label for="smartstoreCheck">
+                                <span>스마트스토어</span>
+                            </label>
+                        </div>
+                        <div class="div_toggle_btn_label_span">
+                            <input id="coupangCheck" type="checkbox" class="sc-gJwTLC ikxBAC"/>
+                            <label for="coupangCheck">
+                                <span>쿠팡</span>
+                            </label>
+                        </div>
+                        <div class="div_toggle_btn_label_span">
+                            <input id="gsshopCheck" type="checkbox" class="sc-gJwTLC ikxBAC"/>
+                            <label for="gsshopCheck">
+                                <span>GS SHOP</span>
+                            </label>
+                        </div>
+                        <div class="div_toggle_btn_label_span">
+                            <input id="lotteonCheck" type="checkbox" class="sc-gJwTLC ikxBAC"/>
+                            <label for="lotteonCheck">
+                                <span>롯데온</span>
+                            </label>
+                        </div>
+                        <div class="div_toggle_btn_label_span">
+                            <input id="todayhouseCheck" type="checkbox" class="sc-gJwTLC ikxBAC"/>
+                            <label for="todayhouseCheck">
+                                <span>오늘의집</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn_container">
+        <button type="button" class="go_back_btn btn" onclick="history.back()">목록</button>
+        <button type="submit" class="submit_btn btn">등록</button>
+    </div>
+    </form>
+</div>
+<script src="../JS/productInsert.js"></script>
+
+</body>
+</html>
