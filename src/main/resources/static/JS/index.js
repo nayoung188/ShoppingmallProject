@@ -59,5 +59,7 @@ function hideCounselModal() {
 // }
 
 $(document).ready(function (){
-    $(".slide_div").slick();
+    $('.slide_div').slick({
+
+    });
 });
