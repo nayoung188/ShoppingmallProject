@@ -1,0 +1,362 @@
+
+/* index는 별도의 index css가 존재 */
+/* header, footer, loginForm CSS 기재 */
+
+/* 기본요소 */
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+body{
+    margin: 0;
+}
+
+/* header */
+.main_header {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    padding: 8px 12px;
+    box-shadow: 0px -3px 10px #777;
+}
+.main_header_div{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.a_div {
+    margin-left: 5%;
+    display: inline-block;
+}
+.a_div a {
+    margin-right: 15px;
+}
+.a_div a:hover {
+    font-weight: bold;
+    color: #0096ff;
+}
+
+.login_div {
+    width: 210px;
+    margin-left: auto;
+    margin-right: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.login_btn_div button{
+    width: 100px;
+    height: 35px;
+    border-radius: 30px;
+    border: 1px solid #0096ff;
+    background-color: #FFFFFF;
+    color: #0096ff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.join_btn_div button {
+    width: 100px;
+    height: 35px;
+    border-radius: 30px;
+    border: 1px solid #0096ff;
+    background-color: #0096ff;
+    color: #FFFFFF;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.login_btn_div button:hover{
+    background-color: #0096ff;
+    color: #FFFFFF;
+    transition: 0.3s;
+}
+.join_btn_div button:hover{
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    color: #0096ff;
+    transition: 0.3s;
+}
+
+
+/*.login_div a:hover {*/
+/*  font-weight: bold;*/
+/*  color: #0096ff;*/
+/*}*/
+
+/* 모달 스타일 */
+.modal, .counsel_modal{
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(51, 51, 51, 0.6);
+}
+
+
+.modal_box {
+    background-color: white;
+    padding: 20px;
+    width: 450px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.login_modal {
+    width: 100%;
+}
+
+.login_form_container{
+    padding-top: 5%;
+    width: 100%;
+}
+
+/* 모달 닫기 버튼 스타일 */
+.close {
+    color: #888888;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+    width: 50px;
+    margin-left: auto;
+    margin-top: -17px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 로그인창 */
+.login_modal_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.login_modal_content .input_div {
+    display: inherit;
+    width: 80%;
+    height: 42px;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+}
+
+.login_modal_content input{
+    outline: none;
+    border: none;
+    width: 80%;
+    margin-left: 6%;
+    font-size: 16px;
+    color: #505050;
+}
+
+.input_div:focus-within{
+    border: 1px solid #5db8ff;
+}
+
+.login_modal_content input::placeholder {
+    color: #cccccc;
+}
+
+.login_button {
+    width: 100%;
+    text-align: center;
+}
+
+.btn_login {
+    width: 80%;
+    border-radius: 25px;
+    border: 0 solid;
+    height: 42px;
+    background-color: #5db8ff;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn_login:hover {
+    background-color: #0075d2;
+    transition: 0.3s;
+}
+
+.login_modal_content hr {
+    width: 80%;
+    margin: 25px 0 25px 0;
+    border-top: 1px solid #cccccc;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+/* 소셜로그인 버튼 */
+.social_login {
+    margin-bottom: 7px;
+}
+
+.customGPlusSignIn {
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 250px;
+    border-radius: 25px;
+    border: 0.7px solid #cccccc;
+    white-space: nowrap;
+}
+.customGPlusSignIn:hover {
+    cursor: pointer;
+}
+.gSignInWrapper span.icon {
+    background: url("../../images/googlelogo.png")transparent 10px 50% / contain no-repeat;
+    background-size: 25px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
+.gSignInWrapper span.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 42px;
+    padding-right: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.customNaverbtn {
+    display: inline-block;
+    background: #03C75A;
+    color: #FFF;
+    width: 250px;
+    border-radius: 25px;
+    border: 0.7px solid #03C75A;
+    white-space: nowrap;
+}
+.customNaverbtn:hover {
+    cursor: pointer;
+}
+.naverSignWrapper span.icon{
+    background: url("../../images/naverlogo.png")transparent 0px 50% / contain no-repeat;
+    background-size: 45px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
+.naverSignWrapper span.buttonText{
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 42px;
+    padding-right: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* 로그인창 footer */
+
+.modal_footer {
+    margin: 50px 0 20px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.modal_footer a {
+    font-size: 13px;
+    color: #888888;
+}
+
+.modal_footer a:hover {
+    color: #0096ff;
+}
+
+
+
+/* index footer */
+.footer_container {
+    width: 100%;
+    min-height: 280px;
+    background-color: rgb(42, 42, 42);
+    color: #FFFFFF;
+}
+
+.footer_textbox {
+    display: flex;
+    text-align: center;
+    padding-top: 38px;
+    flex-direction: column;
+}
+
+.footer_div_1st {
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.footer_div_2nd, .footer_div_3rd {
+    font-size: 13px;
+    font-weight: 300 !important;
+    letter-spacing: -0.7px;
+}
+
+.footer_div_2nd {
+    padding-bottom: 10px;
+}
+
+.footer_div_4th {
+    color: #a9a9a9;
+    font-size: 12px;
+    padding-top: 2.5%;
+}
+
+
+
+/* 반응형 웹 */
+@media screen and (max-width: 700px){
+    .main_header_div {
+        flex-direction: column;
+    }
+
+    .login_div {
+        text-align: center;
+        width: 100%;
+        margin: auto;
+        margin-left: 20px;
+    }
+
+    .a_div {
+        text-align: center;
+        margin-left: 1%;
+    }
+
+}

@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>메인</title>
-    <th:block layout:fragment="css"><link rel="stylesheet" th:href="@{../css/index.css}" /></th:block>
+    <th:block layout:fragment="css"><link rel="stylesheet" th:href="@{../CSS/index.css}" /></th:block>
+
 </head>
 
 <body>
 <div layout:fragment="index" class="index_container">
     <div class="main_content_div">
-        <div class="slide" id="slideShow">
-            <ul class="image_slide">
-                <li class="slide_item"><img src="../images/1.jpg"></li>
-                <li class="slide_item"><img src="../images/2.jpg"></li>
-                <li class="slide_item"><img src="../images/3.jpg"></li>
-                <li class="slide_item"><img src="../images/4.jpg"></li>
-                <li class="slide_item"><img src="../images/5.jpg"></li>
-                <li class="slide_item"><img src="../images/6.jpg"></li>
-            </ul>
+        <div class="slide_div_wrap" id="slideShow">
+            <div class="slide_div">
+                <div class="slide_item"><img src="../images/1.jpg"></div>
+                <div class="slide_item"><img src="../images/2.jpg"></div>
+                <div class="slide_item"><img src="../images/3.jpg"></div>
+                <div class="slide_item"><img src="../images/4.jpg"></div>
+                <div class="slide_item"><img src="../images/5.jpg"></div>
+                <div class="slide_item"><img src="../images/6.jpg"></div>
+            </div>
             <p class="slide_controller">
                 <span class="prev">&lang;</span>
                 <span class="next">&rang;</span>
