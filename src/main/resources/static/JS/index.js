@@ -15,51 +15,11 @@ function hideCounselModal() {
     document.body.style.overflow = "";
 }
 
-// let slides = document.querySelector(".image_slide"),
-//     slide = document.querySelectorAll(".image_slide li"),
-//     currentIdx = 0,
-//     slideCount = slide.length,
-//     slideWidth = 300,
-//     slideMargin = 30,
-//     prevBtn = document.querySelector(".prev"),
-//     nextBtn = document.querySelector(".next");
-//
-// makeClone();
-//
-// function makeClone(){
-//     for(let i=0; i <slideCount; i++){
-//         let cloneSlide = slide[i].cloneNode(true);
-//         cloneSlide.classList.add("clone");
-//         slides.appendChild(cloneSlide);
-//     }
-//
-//     for(let i=slideCount -1; i >=0; i--){
-//         let cloneSlide = slide[i].cloneNode(true);
-//         cloneSlide.classList.add("clone");
-//         slides.prepend(cloneSlide);
-//     }
-//
-//     updateWidth();
-//     setinit();
-//     setTimeout(function (){
-//         slides.classList.add("animated");
-//     }, 100);
-// }
-//
-// function updateWidth(){
-//     let currentSlides = document.querySelectorAll(".image_slide li");
-//     let newSlideCount = currentSlides.length;
-//     let newWidth = (slideWidth + slideMargin) * newSlideCount - slideMargin + "px";
-//     slides.style.width = newWidth;
-// }
-//
-// function setinit(){
-//     let translateValue = -(slideWidth + slideMargin) * slideCount;
-//     slides.style.transform = "translateX(" + translateValue + "px)";
-// }
-
 $(document).ready(function (){
+    // slick 라이브러리를 사용한 무한츠쿠요미
     $('.slide_div').slick({
-
+        slide: 'div',
+        infinite: true,
+        arrows: true
     });
 });

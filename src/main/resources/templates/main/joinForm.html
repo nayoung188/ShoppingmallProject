@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="icon" type="image/png" href="../images/favicon_96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="../images/FAVICON.png" sizes="96x96"/>
     <link type="text/css" rel="stylesheet" href="../CSS/mainLayout.css" />
     <link rel="stylesheet" th:href="@{../css/join.css}" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -13,14 +13,14 @@
         fn_checkAll();
         fn_checkOne();
         fn_toggleCheck();
-        // fn_emailCheck();
-        // fn_pwCheck();
-        // fn_rePwCheck();
-        // fn_nameCheck();
-        // fn_mobileCheck();
-        // fn_companyNameCheck();
-        // fn_companyNumberCheck();
-        //fn_join();
+        fn_emailCheck();
+        fn_pwCheck();
+        fn_rePwCheck();
+        fn_nameCheck();
+        fn_mobileCheck();
+        fn_companyNameCheck();
+        fn_companyNumberCheck();
+        fn_join();
     });
 
     var emailPass = false;
@@ -268,8 +268,10 @@
         <div class="join_content">
             <p>회원가입</p>
             <div class="join_agree_div">
-                <span class="title_span">약관동의</span>
-                <span class="sub_title_span">이용약관 내용을 확인 후 동의해 주세요.</span>
+                <div class="join_label_bax">
+                    <span class="title_span">약관동의</span>
+                    <span class="sub_title_span">이용약관 내용을 확인 후 동의해 주세요.</span>
+                </div>
                 <hr>
                 <div class="check_box_list">
                     <div class="check_all_div">
@@ -291,8 +293,10 @@
                 </div>
             </div>
             <div class="join_information_div">
-                <span class="title_span">회원정보 입력</span>
-                <span class="info_sub_title_span">*  필수 입력값 입니다.</span>
+                <div class="join_label_bax">
+                    <span class="title_span">회원정보 입력</span>
+                    <span class="info_sub_title_span">*  필수 입력값 입니다.</span>
+                </div>
                 <hr>
                 <div class="join_info_write_section">
                     <div class="join_email_div">

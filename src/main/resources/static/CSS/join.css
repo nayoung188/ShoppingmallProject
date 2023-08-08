@@ -28,6 +28,12 @@ input::placeholder{
     height: 20vh;
 }
 
+.join_label_bax {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
 .join_content_box{
     margin: auto;
     width: 520px;
@@ -38,7 +44,7 @@ input::placeholder{
 }
 
 .join_content{
-    width: 90%;
+    width: 100%;
     margin: auto;
 }
 
@@ -60,7 +66,6 @@ input::placeholder{
 
 .sub_title_span {
     font-size: 13px;
-    padding-left: 121px;
 }
 
 .check_box_list{
@@ -81,7 +86,6 @@ input::placeholder{
 .info_sub_title_span {
     color: red;
     font-size: 13px;
-    padding-left: 205px;
 }
 
 .join_information_div {
