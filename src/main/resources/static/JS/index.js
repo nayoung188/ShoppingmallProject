@@ -20,6 +20,7 @@ $(document).ready(function (){
     $('.slide_div').slick({
         slide: 'div',
         infinite: true,
-        arrows: true
+        arrows: true,
+        dots: true
     });
 });

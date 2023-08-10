@@ -125,10 +125,7 @@ input::placeholder{
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-}
-
-.join_info_write_section div{
-    margin-bottom: 25px;
+    gap: 30px 0;
 }
 
 .join_button_div{
@@ -158,3 +155,9 @@ input::placeholder{
     position: absolute;
 }
 
+.input_and_button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

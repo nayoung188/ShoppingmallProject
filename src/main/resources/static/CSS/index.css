@@ -10,7 +10,7 @@ body{
 .counsel_div {
     text-align: center;
     margin-top: 55px;
-    padding-bottom: 75px;
+    padding-bottom: 100px;
 }
 
 .counsel_btn {
@@ -125,6 +125,14 @@ li {
     margin: auto;
 }
 
-.slick-prev, .slick-next {
+.slick-prev:before, .slick-next:before {
+    color: #0075d2 !important;
+}
+
+.slick-dots li button:before {
+    color: #0075d2 !important;
+}
+
+.slick-dots li.slick-active button:before {
     color: #0075d2 !important;
 }

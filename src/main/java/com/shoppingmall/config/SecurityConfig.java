@@ -2,16 +2,22 @@ package com.shoppingmall.config;
 
 
 import com.shoppingmall.auth.AuthSuccessHandler;
+import com.shoppingmall.auth.LoginFailHandler;
 import com.shoppingmall.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+import java.util.Locale;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +28,8 @@ public class SecurityConfig {
 
     @Autowired
     private AuthSuccessHandler authSuccessHandler;
+    @Autowired
+    private LoginFailHandler loginFailHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -40,6 +48,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/member/loginForm")
                 .usernameParameter("memberEmail")
                 .passwordParameter("memberPw")
+                .failureHandler(loginFailHandler)
                 .successHandler(authSuccessHandler);
 
         // 로그아웃 설정
@@ -54,6 +63,8 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+
 
 }
 

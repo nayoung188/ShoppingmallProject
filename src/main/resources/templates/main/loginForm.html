@@ -9,6 +9,9 @@
         <div class="input_div">
             <input type="password" class="pw_input" id="memberPw" name="memberPw" placeholder="비밀번호">
         </div>
+        <div th:if="${param.error}">
+            <p id="valid" class="error_message" th:text="${exception}"></p>
+        </div>
         <div class="login_button">
             <button type="submit" class="btn_login">로그인</button>
         </div>
