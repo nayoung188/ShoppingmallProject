@@ -44,8 +44,8 @@ public class SecurityConfig {
 
         // 로그인 설정
         http.formLogin()
-                .loginPage("/member/loginForm")
-                .loginProcessingUrl("/member/loginForm")
+                .loginPage("/main/loginForm")
+                .loginProcessingUrl("/member/login")
                 .usernameParameter("memberEmail")
                 .passwordParameter("memberPw")
                 .failureHandler(loginFailHandler)

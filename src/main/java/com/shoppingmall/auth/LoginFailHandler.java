@@ -38,7 +38,7 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
         }
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
-        setDefaultFailureUrl("/member/loginForm?error=true&exception=" + errorMessage);
+        setDefaultFailureUrl("/main/loginForm?error=true&exception=" + errorMessage);
 
         super.onAuthenticationFailure(request, response, exception);
     }
