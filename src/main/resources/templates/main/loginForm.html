@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div class="login_modal">
-    <form th:field="loginFrm" id="loginForm" method="post">
+    <form th:field="loginFrm" id="loginForm" th:action="@{/member/login}"  method="post">
     <div class="login_modal_content">
         <div class="input_div">
             <input type="email" class="email_input" id="memberEmail" name="memberEmail" placeholder="이메일">
         </div>
         <div class="input_div">
             <input type="password" class="pw_input" id="memberPw" name="memberPw" placeholder="비밀번호">
-        </div>
-        <div th:if="${error}">
-            <p id="valid" class="error_message" th:text="${exception}"></p>
         </div>
         <div class="login_button">
             <button type="submit" class="btn_login">로그인</button>
@@ -41,25 +38,5 @@
         </div>
     </div>
     </form>
-    <script>
-        $(document).ready(function (){
-           $('#loginForm').submit(function (event){
-              event.preventDefault();
-              var formData = $(this).serialize();
-              $.ajax({
-                 type: "POST",
-                 url: "/member/login",
-                 data: formData,
-                 success: function (data){
-                     window.location.reload();
-                 },
-                 error: function (xhr, status, error){
-                     var errorMessage = xhr.responseJSON.messgae;
-                     $("#errorMessage").text(errorMessage);
-                 }
-              });
-           });
-        });
-    </script>
 </div>
 </html>

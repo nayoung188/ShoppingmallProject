@@ -96,12 +96,15 @@
                     dataType: 'text',
                     success: function(result) {
                         if(result == "중복없음") {
+                            console.log(result);
                             alert("사용 가능한 이메일입니다.");
                             emailPass = true;
                         } else if(result == "중복") {
+                            console.log(result);
                             alert("이미 가입된 이메일입니다.");
                             emailPass = false;
                         } else {
+                            console.log(result);
                             alert("사용 불가능한 이메일입니다.");
                             emailPass = false;
                         }
@@ -255,6 +258,7 @@
                 event.preventDefault();
                 return;
              }
+             alert("회원가입이 완료되었습니다! 가입된 아이디로 로그인 해주세요!");
         });
     }
 

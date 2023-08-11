@@ -61,10 +61,10 @@ public class MemberService{
     // 이메일 중복 확인
     public String checkSameEmail(String memberEmail){
         Optional<MemberEntity> result = memberRepository.findByMemberEmail(memberEmail);
-        if(result == null){
-            return "중복없음";
-        } else {
+        if(result.isPresent()){
             return "중복";
+        } else {
+            return "중복없음";
         }
     }
 
