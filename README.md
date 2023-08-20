@@ -16,5 +16,15 @@
 
 ### 구현기능 / 상세설명
 
-# 메인화면
+- 메인화면
+
+![메인1-min](https://github.com/nayoung188/ShoppingmallProject/assets/109578804/6f8affac-4fba-43fd-a728-1ea255d07727)
+
+![메인3](https://github.com/nayoung188/ShoppingmallProject/assets/109578804/cd69f945-bdee-4ce4-9850-0311ad90038a)
+
+![메인4](https://github.com/nayoung188/ShoppingmallProject/assets/109578804/7e77d406-b863-4d85-9a5c-d164bc242780)
+
+![메인5](https://github.com/nayoung188/ShoppingmallProject/assets/109578804/4ec9b2e6-a6a5-48f2-b29d-7a6c4fc3574a)
+* 로그인
+  Spring Security를 사용한 로그인 처리 및 권한에 따른 button 출력
 
